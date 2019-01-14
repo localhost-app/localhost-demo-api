@@ -17,23 +17,24 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.tableThroughput}
         WriteCapacityUnits: ${self:custom.tableThroughput}
+
   UsersTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: ${self:custom.usersTableName}
       AttributeDefinitions:
         - AttributeName: userId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: createdDate
-        - AttributeType: N
+          AttributeType: N
         - AttributeName: reviewId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: p2pInteractionId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: p2oInteractionId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: userInfoId
-        - AttributeType: S
+          AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
@@ -87,21 +88,22 @@ Resources:
           ProvisionedThroughput:
             ReadCapacityUnits: ${self:custom.tableThroughput}
             WriteCapacityUnits: ${self:custom.tableThroughput}
+
   SchedulesTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: ${self:custom.schedulesTableName}
       AttributeDefinitions:
         - AttributeName: scheduleId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: createdDate
-        - AttributeType: N
+          AttributeType: N
         - AttributeName: scheduleInfoId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: memberId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: activityId
-        - AttributeType: S
+          AttributeType: S
       KeySchema:
         - AttributeName: scheduleId
           KeyType: HASH
@@ -144,23 +146,24 @@ Resources:
           ProvisionedThroughput:
             ReadCapacityUnits: ${self:custom.tableThroughput}
             WriteCapacityUnits: ${self:custom.tableThroughput}
+
   ActivitiesTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: ${self:custom.activitiesTableName}
       AttributeDefinitions:
         - AttributeName: geoHashLocationId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: createdDate
-        - AttributeType: N
+          AttributeType: N
         - AttributeName: locationInfoId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: experienceInfoId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: eventId
-        - AttributeType: S
+          AttributeType: S
         - AttributeName: attachmentId
-        - AttributeType: S
+          AttributeType: S
       KeySchema:
         - AttributeName: geoHashLocationId
           KeyType: HASH
@@ -203,7 +206,7 @@ Resources:
           ProvisionedThroughput:
             ReadCapacityUnits: ${self:custom.tableThroughput}
             WriteCapacityUnits: ${self:custom.tableThroughput}
-        - IndexName: "GSI_scheduleAttachments" #4
+        - IndexName: "GSI_activityAttachments" #4
           KeySchema:
             - AttributeName: "geoHashLocationId"
               KeyType: "HASH"
