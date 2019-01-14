@@ -17,3 +17,200 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.tableThroughput}
         WriteCapacityUnits: ${self:custom.tableThroughput}
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.usersTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+        - AttributeType: S
+        - AttributeName: createdDate
+        - AttributeType: N
+        - AttributeName: reviewId
+        - AttributeType: S
+        - AttributeName: p2pInteractionId
+        - AttributeType: S
+        - AttributeName: p2oInteractionId
+        - AttributeType: S
+        - AttributeName: userInfoId
+        - AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: createdDate
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.tableThroughput}
+        WriteCapacityUnits: ${self:custom.tableThroughput}
+      GlobalSecondaryIndexes:
+        - IndexName: "GSI_userReviews" #1
+          KeySchema:
+            - AttributeName: "userId"
+              KeyType: "HASH"
+            - AttributeName: "reviewId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_p2pInteractions" #2
+          KeySchema:
+            - AttributeName: "userId"
+              KeyType: "HASH"
+            - AttributeName: "p2pInteractionId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_p2oInteractionId" #3
+          KeySchema:
+            - AttributeName: "userId"
+              KeyType: "HASH"
+            - AttributeName: "p2oInteractionId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_userInfo" #4
+          KeySchema:
+            - AttributeName: "userId"
+              KeyType: "HASH"
+            - AttributeName: "userInfoId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+  SchedulesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.schedulesTableName}
+      AttributeDefinitions:
+        - AttributeName: scheduleId
+        - AttributeType: S
+        - AttributeName: createdDate
+        - AttributeType: N
+        - AttributeName: scheduleInfoId
+        - AttributeType: S
+        - AttributeName: memberId
+        - AttributeType: S
+        - AttributeName: activityId
+        - AttributeType: S
+      KeySchema:
+        - AttributeName: scheduleId
+          KeyType: HASH
+        - AttributeName: createdDate
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.tableThroughput}
+        WriteCapacityUnits: ${self:custom.tableThroughput}
+      GlobalSecondaryIndexes:
+        - IndexName: "GSI_scheduleInfo" #1
+          KeySchema:
+            - AttributeName: "scheduleId"
+              KeyType: "HASH"
+            - AttributeName: "scheduleInfoId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_scheduleMembers" #2
+          KeySchema:
+            - AttributeName: "scheduleId"
+              KeyType: "HASH"
+            - AttributeName: "memberId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_scheduleActivities" #3
+          KeySchema:
+            - AttributeName: "scheduleId"
+              KeyType: "HASH"
+            - AttributeName: "activityId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+  ActivitiesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.activitiesTableName}
+      AttributeDefinitions:
+        - AttributeName: geoHashLocationId
+        - AttributeType: S
+        - AttributeName: createdDate
+        - AttributeType: N
+        - AttributeName: locationInfoId
+        - AttributeType: S
+        - AttributeName: experienceInfoId
+        - AttributeType: S
+        - AttributeName: eventId
+        - AttributeType: S
+        - AttributeName: attachmentId
+        - AttributeType: S
+      KeySchema:
+        - AttributeName: geoHashLocationId
+          KeyType: HASH
+        - AttributeName: createdDate
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.tableThroughput}
+        WriteCapacityUnits: ${self:custom.tableThroughput}
+      GlobalSecondaryIndexes:
+        - IndexName: "GSI_locationInfo" #1
+          KeySchema:
+            - AttributeName: "geoHashLocationId"
+              KeyType: "HASH"
+            - AttributeName: "locationInfoId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_experienceInfo" #2
+          KeySchema:
+            - AttributeName: "geoHashLocationId"
+              KeyType: "HASH"
+            - AttributeName: "experienceInfoId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_experienceEvents" #3
+          KeySchema:
+            - AttributeName: "experienceInfoId"
+              KeyType: "HASH"
+            - AttributeName: "eventId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: "GSI_scheduleAttachments" #4
+          KeySchema:
+            - AttributeName: "geoHashLocationId"
+              KeyType: "HASH"
+            - AttributeName: "attachmentId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}

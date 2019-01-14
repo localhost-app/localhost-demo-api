@@ -11,6 +11,9 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
   tableName: ${self:custom.stage}-notes
+  usersTableName: ${self:custom.stage}-users
+  schedulesTableName: ${self:custom.stage}-schedules
+  activitiesTableName: ${self:custom.stage}-activities
   # Set our DynamoDB throughput for prod and all other non-prod stages.
   tableThroughputs:
     prod: 5
@@ -50,6 +53,9 @@ provider:
       # the specific table for the stage
       Resource:
         - "Fn::GetAtt": [ NotesTable, Arn ]
+        - "Fn::GetAtt": [ UsersTable, Arn ]
+        - "Fn::GetAtt": [ SchedulesTable, Arn ]
+        - "Fn::GetAtt": [ ActivitiesTable, Arn ]
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
